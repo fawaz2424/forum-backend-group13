@@ -14,3 +14,20 @@ export class UserRepository implements IUserRepository {
       role: createdUser.role
     };
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const foundUser = await UserModel.findOne({ email });
+
+    if (!foundUser) {
+      return null;
+    }
+
+    return {
+      id: foundUser._id.toString(),
+      name: foundUser.name,
+      email: foundUser.email,
+      password: foundUser.password,
+      role: foundUser.role
+    };
+  }
+}
