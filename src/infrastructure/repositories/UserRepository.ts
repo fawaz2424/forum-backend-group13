@@ -1,0 +1,16 @@
+import { User } from "../../domain/entities/User";
+import { IUserRepository } from "../../domain/repositories/IUserRepository";
+import { UserModel } from "../database/models/UserModel";
+
+export class UserRepository implements IUserRepository {
+  async create(user: User): Promise<User> {
+    const createdUser = await UserModel.create(user);
+
+    return {
+      id: createdUser._id.toString(),
+      name: createdUser.name,
+      email: createdUser.email,
+      password: createdUser.password,
+      role: createdUser.role
+    };
+  }
