@@ -1,11 +1,19 @@
 # Forum Backend API
 
-## Project Setup
-This is a backend API for a forum system built with Node.js, TypeScript, and Express.
+## Project Overview
+This project is a backend API for a forum application built using ""Node.js, Express, and TypeScript"".  
+It follows a ""Clean Architecture"" structure to ensure scalability, maintainability, and testability.
 
-## Jira Tracking
-- FBA-1 User Authentication System
-- FBA-2 Post Management
-- FBA-3 Comments System
-- FBA-4 Likes System
-- FBA-5 Admin Features
+---
+
+## Features
+- User Authentication (Register & Login)
+- Post Management (Create, Update, Delete, Get Posts)
+- Comments System
+- Likes System
+- Admin Features (User & Content Management)
+
+---
+
+## Architecture
+The project is structured using Clean Architecture:
