@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { RegisterUserUseCase } from "../../application/use-cases/RegisterUser";
+import { LoginUserUseCase } from "../../application/use-cases/LoginUser";
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
 
 export class AuthController {
@@ -13,14 +14,34 @@ export class AuthController {
       const user = await registerUseCase.execute(name, email, password);
 
       res.status(201).json({
-       message: "User registered successfully",
-       user: {
-       id: user.id,
-       name: user.name,
-       email: user.email,
-       role: user.role
+        message: "User registered successfully",
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role
         }
-    });
+      });
+    } catch (error: any) {
+      res.status(400).json({
+        error: error.message
+      });
+    }
+  }
+
+  async login(req: Request, res: Response) {
+    try {
+      const { email, password } = req.body;
+
+      const userRepository = new UserRepository();
+      const loginUseCase = new LoginUserUseCase(userRepository);
+
+      const result = await loginUseCase.execute(email, password);
+
+      res.status(200).json({
+        message: "Login successful",
+        ...result
+      });
     } catch (error: any) {
       res.status(400).json({
         error: error.message
