@@ -26,4 +26,48 @@ export class PostController {
       res.status(500).json({ message: "Error fetching posts" });
     }
   }
+
+  static async getPostById(req: Request, res: Response) {
+    try {
+      const post = await repo.getPostById((req.params as any).id);
+
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching post" });
+    }
+  }
+
+  static async updatePost(req: Request, res: Response) {
+    try {
+      const post = await repo.updatePost((req.params as any).id, {
+        title: req.body.title,
+        content: req.body.content,
+      });
+
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating post" });
+    }
+  }
+
+  static async deletePost(req: Request, res: Response) {
+    try {
+      const post = await repo.deletePost((req.params as any).id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      res.json({ message: "Post deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting post" });
+    }
+  }
 }
