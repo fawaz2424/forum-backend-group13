@@ -1,16 +1,17 @@
+import { ICommentRepository } from "../../domain/repositories/ICommentRepository";
 import { CommentModel } from "../database/models/CommentModel";
 
-export class CommentRepository {
-  async createComment(data: {
-    content: string;
-    userId: string;
-    postId: string;
-  }) {
+export class CommentRepository implements ICommentRepository {
+  async createComment(data: { content: string; userId: string; postId: string }) {
     return await CommentModel.create(data);
   }
 
   async getCommentsByPost(postId: string) {
     return await CommentModel.find({ postId }).sort({ createdAt: -1 });
+  }
+
+  async getCommentById(id: string) {
+    return await CommentModel.findById(id);
   }
 
   async updateComment(id: string, content: string) {

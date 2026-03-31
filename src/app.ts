@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api", commentRoutes); // ✅ ADD THIS
+app.use("/api", commentRoutes); 
 
 // Test route
 app.get("/", (_req, res) => {
