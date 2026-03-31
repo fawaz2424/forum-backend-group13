@@ -1,11 +1,8 @@
+import { ICommentRepository } from "../../domain/repositories/ICommentRepository";
 import { CommentModel } from "../database/models/CommentModel";
 
-export class CommentRepository {
-  async createComment(data: {
-    content: string;
-    userId: string;
-    postId: string;
-  }) {
+export class CommentRepository implements ICommentRepository {
+  async createComment(data: { content: string; userId: string; postId: string }) {
     return await CommentModel.create(data);
   }
 
