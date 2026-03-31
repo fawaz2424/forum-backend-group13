@@ -1,6 +1,7 @@
+import { IPostRepository } from "../../domain/repositories/IPostRepository";
 import { PostModel } from "../database/models/PostModel";
 
-export class PostRepository {
+export class PostRepository implements IPostRepository {
   async createPost(data: { title: string; content: string; userId: string }) {
     return await PostModel.create(data);
   }
