@@ -13,6 +13,10 @@ export class CommentRepository {
     return await CommentModel.find({ postId }).sort({ createdAt: -1 });
   }
 
+  async getCommentById(id: string) {
+    return await CommentModel.findById(id);
+  }
+
   async updateComment(id: string, content: string) {
     return await CommentModel.findByIdAndUpdate(
       id,
