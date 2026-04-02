@@ -3,6 +3,7 @@ import { MongoLikeRepository } from "../../infrastructure/repositories/MongoLike
 import { LikePostUseCase } from "../../application/use-cases/LikePostUseCase";
 import { UnlikePostUseCase } from "../../application/use-cases/UnlikePostUseCase";
 import { LikeCommentUseCase } from "../../application/use-cases/LikeCommentUseCase";
+import { UnlikeCommentUseCase } from "../../application/use-cases/UnlikeCommentUseCase";
 export class LikeController {
   static async likePost(req: Request, res: Response) {
     try {
@@ -93,4 +94,32 @@ export class LikeController {
     });
   }
 }
-} 
+static async unlikeComment(req: Request, res: Response) {
+  try {
+    const user = { id: "test-user-1" }; // temporary for testing
+    const commentId = req.params.commentId as string;
+
+    if (!user || !user.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const likeRepository = new MongoLikeRepository();
+    const unlikeCommentUseCase = new UnlikeCommentUseCase(likeRepository);
+
+    const result = await unlikeCommentUseCase.execute(user.id, commentId);
+
+    return res.status(200).json({
+      success: true,
+      message: result.message,
+    });
+  } catch (error: any) {
+    return res.status(400).json({
+      success: false,
+      message: error.message || "Failed to unlike comment",
+    });
+  }
+}
+}
