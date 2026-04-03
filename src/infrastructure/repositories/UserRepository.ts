@@ -41,4 +41,19 @@ async findAll(): Promise<User[]> {
     password: user.password,
   }));
 }
+async findById(id: string): Promise<User | null> {
+  const foundUser = await UserModel.findById(id).select("-password");
+
+  if (!foundUser) {
+    return null;
+  }
+
+  return {
+    id: foundUser._id.toString(),
+    name: foundUser.name,
+    email: foundUser.email,
+    role: foundUser.role,
+    password: foundUser.password,
+  };
+}
 }
