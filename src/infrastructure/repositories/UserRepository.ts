@@ -30,4 +30,15 @@ export class UserRepository implements IUserRepository {
       role: foundUser.role
     };
   }
+async findAll(): Promise<User[]> {
+  const users = await UserModel.find().select("-password");
+
+  return users.map((user) => ({
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    password: user.password,
+  }));
+}
 }
