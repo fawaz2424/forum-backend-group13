@@ -56,4 +56,23 @@ async findById(id: string): Promise<User | null> {
     password: foundUser.password,
   };
 }
+async updateRole(id: string, role: string): Promise<User | null> {
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    id,
+    { role },
+    { new: true }
+  ).select("-password");
+
+  if (!updatedUser) {
+    return null;
+  }
+
+  return {
+    id: updatedUser._id.toString(),
+    name: updatedUser.name,
+    email: updatedUser.email,
+    role: updatedUser.role,
+    password: updatedUser.password,
+  };
+}
 }
