@@ -75,4 +75,7 @@ async updateRole(id: string, role: string): Promise<User | null> {
     password: updatedUser.password,
   };
 }
+async countAll(): Promise<number> {
+  return await UserModel.countDocuments();
+}
 }

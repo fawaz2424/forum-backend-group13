@@ -3,6 +3,8 @@ import { UserRepository } from "../../infrastructure/repositories/UserRepository
 import { GetAllUsersUseCase } from "../../application/use-cases/GetAllUserUseCase";
 import { GetUserByIdUseCase } from "../../application/use-cases/GetUserByIdUseCase";
 import { UpdateUserRoleUseCase } from "../../application/use-cases/UpdateUserRoleUseCase";
+import { MongoLikeRepository } from "../../infrastructure/repositories/MongoLikeRepository";
+import { GetPlatformStatsUseCase } from "../../application/use-cases/GetPlatformStatsUseCase";
 
 export class AdminController {
   static async getAllUser(req: Request, res: Response) {
@@ -85,18 +87,28 @@ export class AdminController {
   }
 
   static async getPlatformStats(req: Request, res: Response) {
+  try {
+    const userRepository = new UserRepository();
+    const likeRepository = new MongoLikeRepository();
+    const getPlatformStatsUseCase = new GetPlatformStatsUseCase(
+      userRepository,
+      likeRepository
+    );
+
+    const result = await getPlatformStatsUseCase.execute();
+
     return res.status(200).json({
       success: true,
-      message: "Platform stats endpoint ready",
-      data: {
-        totalUsers: 0,
-        totalPosts: 0,
-        totalComments: 0,
-        totalPostLikes: 0,
-        totalCommentLikes: 0,
-      },
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to fetch platform stats",
     });
   }
+}
 static async getAllUsers(req: Request, res: Response) {
   try {
     const userRepository = new UserRepository();
