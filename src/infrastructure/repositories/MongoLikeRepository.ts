@@ -38,4 +38,11 @@ export class MongoLikeRepository implements ILikeRepository {
   ): Promise<number> {
     return await LikeModel.countDocuments({ targetId, targetType });
   }
+async countPostLikes(): Promise<number> {
+  return await LikeModel.countDocuments({ targetType: "post" });
+}
+
+async countCommentLikes(): Promise<number> {
+  return await LikeModel.countDocuments({ targetType: "comment" });
+}
 }

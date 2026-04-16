@@ -30,4 +30,52 @@ export class UserRepository implements IUserRepository {
       role: foundUser.role
     };
   }
+async findAll(): Promise<User[]> {
+  const users = await UserModel.find().select("-password");
+
+  return users.map((user) => ({
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    password: user.password,
+  }));
+}
+async findById(id: string): Promise<User | null> {
+  const foundUser = await UserModel.findById(id).select("-password");
+
+  if (!foundUser) {
+    return null;
+  }
+
+  return {
+    id: foundUser._id.toString(),
+    name: foundUser.name,
+    email: foundUser.email,
+    role: foundUser.role,
+    password: foundUser.password,
+  };
+}
+async updateRole(id: string, role: string): Promise<User | null> {
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    id,
+    { role },
+    { new: true }
+  ).select("-password");
+
+  if (!updatedUser) {
+    return null;
+  }
+
+  return {
+    id: updatedUser._id.toString(),
+    name: updatedUser.name,
+    email: updatedUser.email,
+    role: updatedUser.role,
+    password: updatedUser.password,
+  };
+}
+async countAll(): Promise<number> {
+  return await UserModel.countDocuments();
+}
 }
