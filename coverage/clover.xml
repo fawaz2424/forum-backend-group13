@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1776440135349" clover="3.2.0">
+  <project timestamp="1776440135349" name="All files">
+    <metrics statements="71" coveredstatements="71" conditionals="12" coveredconditionals="12" methods="22" coveredmethods="22" elements="105" coveredelements="105" complexity="0" loc="71" ncloc="71" packages="1" files="11" classes="11"/>
+    <file name="CreateComment.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\CreateComment.ts">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+    </file>
+    <file name="CreatePost.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\CreatePost.ts">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+    </file>
+    <file name="DeleteComment.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\DeleteComment.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="9" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="13" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+    </file>
+    <file name="DeletePost.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\DeletePost.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="9" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="13" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+    </file>
+    <file name="GetComments.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\GetComments.ts">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+    </file>
+    <file name="GetPostById.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\GetPostById.ts">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+    </file>
+    <file name="GetPosts.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\GetPosts.ts">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+    </file>
+    <file name="LoginUser.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\LoginUser.ts">
+      <metrics statements="15" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="4" type="stmt"/>
+      <line num="9" count="4" type="stmt"/>
+      <line num="11" count="4" type="cond" truecount="1" falsecount="0"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="15" count="3" type="stmt"/>
+      <line num="17" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="23" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+    </file>
+    <file name="RegisterUser.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\RegisterUser.ts">
+      <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="11" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+    </file>
+    <file name="UpdateComment.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\UpdateComment.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="9" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="13" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+    </file>
+    <file name="UpdatePost.ts" path="C:\Users\fawaz\OneDrive\Desktop\forum-backend-group13\src\application\use-cases\UpdatePost.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="9" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="13" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
