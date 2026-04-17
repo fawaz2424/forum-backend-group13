@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { RegisterUserUseCase } from "../../application/use-cases/RegisterUser";
-import { LoginUserUseCase } from "../../application/use-cases/LoginUser";
+import { RegisterUserUseCase } from "../use-cases/RegisterUser";
+import { LoginUserUseCase } from "../use-cases/LoginUser";
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
 
 export class AuthController {

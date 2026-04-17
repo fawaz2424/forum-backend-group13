@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { MongoLikeRepository } from "../../infrastructure/repositories/MongoLikeRepository";
-import { LikePostUseCase } from "../../application/use-cases/LikePostUseCase";
-import { UnlikePostUseCase } from "../../application/use-cases/UnlikePostUseCase";
-import { LikeCommentUseCase } from "../../application/use-cases/LikeCommentUseCase";
-import { UnlikeCommentUseCase } from "../../application/use-cases/UnlikeCommentUseCase";
+import { LikePostUseCase } from "../use-cases/LikePostUseCase";
+import { UnlikePostUseCase } from "../use-cases/UnlikePostUseCase";
+import { LikeCommentUseCase } from "../use-cases/LikeCommentUseCase";
+import { UnlikeCommentUseCase } from "../use-cases/UnlikeCommentUseCase";
 
 export class LikeController {
   static async likePost(req: Request, res: Response) {

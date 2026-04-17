@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { CommentRepository } from "../../infrastructure/repositories/CommentRepository";
-import { CreateComment } from "../../application/use-cases/CreateComment";
-import { GetComments } from "../../application/use-cases/GetComments";
-import { UpdateComment } from "../../application/use-cases/UpdateComment";
-import { DeleteComment } from "../../application/use-cases/DeleteComment";
+import { CreateComment } from "../use-cases/CreateComment";
+import { GetComments } from "../use-cases/GetComments";
+import { UpdateComment } from "../use-cases/UpdateComment";
+import { DeleteComment } from "../use-cases/DeleteComment";
 
 const commentRepository = new CommentRepository();
 

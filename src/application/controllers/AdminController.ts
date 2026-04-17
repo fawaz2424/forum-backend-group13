@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
-import { GetAllUsersUseCase } from "../../application/use-cases/GetAllUserUseCase";
-import { GetUserByIdUseCase } from "../../application/use-cases/GetUserByIdUseCase";
-import { UpdateUserRoleUseCase } from "../../application/use-cases/UpdateUserRoleUseCase";
+import { GetAllUsersUseCase } from "../use-cases/GetAllUsersUseCase";
+import { GetUserByIdUseCase } from "../use-cases/GetUserByIdUseCase";
+import { UpdateUserRoleUseCase } from "../use-cases/UpdateUserRoleUseCase";
 import { MongoLikeRepository } from "../../infrastructure/repositories/MongoLikeRepository";
-import { GetPlatformStatsUseCase } from "../../application/use-cases/GetPlatformStatsUseCase";
+import { GetPlatformStatsUseCase } from "../use-cases/GetPlatformStatsUseCase";
 
 export class AdminController {
   static async getAllUser(req: Request, res: Response) {
@@ -15,10 +15,11 @@ export class AdminController {
     const result = await getAllUsersUseCase.execute();
 
     return res.status(200).json({
-      success: true,
-      message: result.message,
-      data: result.data,
-    });
+  success: true,
+  message: "Users fetched successfully",
+  data: result,
+});
+
   } catch (error: any) {
     return res.status(500).json({
       success: false,
@@ -117,10 +118,11 @@ static async getAllUsers(req: Request, res: Response) {
     const result = await getAllUsersUseCase.execute();
 
     return res.status(200).json({
-      success: true,
-      message: result.message,
-      data: result.data,
-    });
+  success: true,
+  message: "Users fetched successfully",
+  data: result,
+});
+
   } catch (error: any) {
     return res.status(500).json({
       success: false,

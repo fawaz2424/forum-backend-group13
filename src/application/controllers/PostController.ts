@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { PostRepository } from "../../infrastructure/repositories/PostRepository";
-import { CreatePost } from "../../application/use-cases/CreatePost";
-import { GetPosts } from "../../application/use-cases/GetPosts";
-import { GetPostById } from "../../application/use-cases/GetPostById";
-import { UpdatePost } from "../../application/use-cases/UpdatePost";
-import { DeletePost } from "../../application/use-cases/DeletePost";
+import { CreatePost } from "../use-cases/CreatePost";
+import { GetPosts } from "../use-cases/GetPosts";
+import { GetPostById } from "../use-cases/GetPostById";
+import { UpdatePost } from "../use-cases/UpdatePost";
+import { DeletePost } from "../use-cases/DeletePost";
 
 const postRepository = new PostRepository();
 
