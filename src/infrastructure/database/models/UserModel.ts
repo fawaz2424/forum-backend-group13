@@ -5,6 +5,8 @@ export interface IUserDocument extends Document {
   email: string;
   password: string;
   role: "user" | "admin";
+   isActive: boolean
+
 }
 
 const UserSchema = new Schema<IUserDocument>(
@@ -12,28 +14,31 @@ const UserSchema = new Schema<IUserDocument>(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      trim: true,
-      lowercase: true
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     role: {
       type: String,
       enum: ["user", "admin"],
-      default: "user"
-    }
+      default: "user",
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
+
 
 export const UserModel = mongoose.model<IUserDocument>("User", UserSchema);
