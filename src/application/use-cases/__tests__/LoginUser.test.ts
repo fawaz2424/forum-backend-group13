@@ -6,13 +6,10 @@ jest.mock("bcryptjs");
 jest.mock("jsonwebtoken");
 
 const mockUserRepository = {
-  create: jest.fn(),
   findByEmail: jest.fn(),
-  findById: jest.fn(),
   incrementFailedLoginAttempts: jest.fn(),
   resetFailedLoginAttempts: jest.fn(),
   lockUser: jest.fn(),
-  unlockUser: jest.fn(),
 };
 
 describe("LoginUserUseCase", () => {
@@ -51,6 +48,7 @@ describe("LoginUserUseCase", () => {
 
     expect(mockUserRepository.resetFailedLoginAttempts).toHaveBeenCalledWith("u1");
     expect(result.token).toBe("mockToken");
+    expect(result.user.email).toBe("fawaz@test.com");
   });
 
   it("should throw error if user does not exist", async () => {
@@ -137,4 +135,29 @@ describe("LoginUserUseCase", () => {
 
     await expect(
       useCase.execute("fawaz@test.com", "123456")
-    ).rejects.toThrow("
+    ).rejects.toThrow("Account is locked. Please contact admin to unlock it.");
+  });
+});
+
+it("should throw error if JWT_SECRET is missing", async () => {
+  process.env.JWT_SECRET = "";
+
+  const foundUser = {
+    id: "u1",
+    name: "Fawaz",
+    email: "fawaz@test.com",
+    password: "hashedPassword",
+    role: "user",
+    failedLoginAttempts: 0,
+    isLocked: false,
+  };
+
+  mockUserRepository.findByEmail.mockResolvedValue(foundUser);
+  (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+
+  const useCase = new LoginUserUseCase(mockUserRepository as any);
+
+  await expect(
+    useCase.execute("fawaz@test.com", "123456")
+  ).rejects.toThrow("JWT_SECRET is not defined");
+});
