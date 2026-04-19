@@ -12,15 +12,26 @@ export class LoginUserUseCase {
       throw new Error("Invalid email or password");
     }
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (user.isLocked) {
+      throw new Error("Account is locked. Please contact admin to unlock it.");
+    }
 
-    if (!isPasswordMatch) {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      const updatedUser = await this.userRepository.incrementFailedLoginAttempts(user.id!);
+
+      if (updatedUser && updatedUser.failedLoginAttempts >= 3) {
+        await this.userRepository.lockUser(user.id!);
+        throw new Error("Account locked after 3 failed login attempts");
+      }
+
       throw new Error("Invalid email or password");
     }
 
-    const jwtSecret = process.env.JWT_SECRET;
+    await this.userRepository.resetFailedLoginAttempts(user.id!);
 
-    if (!jwtSecret) {
+    if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET is not defined");
     }
 
@@ -28,9 +39,9 @@ export class LoginUserUseCase {
       {
         id: user.id,
         email: user.email,
-        role: user.role
+        role: user.role,
       },
-      jwtSecret,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
@@ -40,8 +51,8 @@ export class LoginUserUseCase {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
-      }
+        role: user.role,
+      },
     };
   }
 }

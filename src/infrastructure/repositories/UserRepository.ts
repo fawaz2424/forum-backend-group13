@@ -1,5 +1,5 @@
-import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
+import { User } from "../../domain/entities/User";
 import { UserModel } from "../database/models/UserModel";
 
 export class UserRepository implements IUserRepository {
@@ -11,71 +11,121 @@ export class UserRepository implements IUserRepository {
       name: createdUser.name,
       email: createdUser.email,
       password: createdUser.password,
-      role: createdUser.role
+      role: createdUser.role,
+      failedLoginAttempts: createdUser.failedLoginAttempts,
+      isLocked: createdUser.isLocked,
     };
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const foundUser = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
-    if (!foundUser) {
-      return null;
-    }
+    if (!user) return null;
 
     return {
-      id: foundUser._id.toString(),
-      name: foundUser.name,
-      email: foundUser.email,
-      password: foundUser.password,
-      role: foundUser.role
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
     };
   }
-async findAll(): Promise<User[]> {
-  const users = await UserModel.find().select("-password");
 
-  return users.map((user) => ({
-    id: user._id.toString(),
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    password: user.password,
-  }));
-}
-async findById(id: string): Promise<User | null> {
-  const foundUser = await UserModel.findById(id).select("-password");
+  async findById(id: string): Promise<User | null> {
+    const user = await UserModel.findById(id);
 
-  if (!foundUser) {
-    return null;
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
+    };
   }
 
-  return {
-    id: foundUser._id.toString(),
-    name: foundUser.name,
-    email: foundUser.email,
-    role: foundUser.role,
-    password: foundUser.password,
-  };
-}
-async updateRole(id: string, role: string): Promise<User | null> {
-  const updatedUser = await UserModel.findByIdAndUpdate(
-    id,
-    { role },
-    { new: true }
-  ).select("-password");
+  async incrementFailedLoginAttempts(userId: string): Promise<User | null> {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { $inc: { failedLoginAttempts: 1 } },
+      { new: true }
+    );
 
-  if (!updatedUser) {
-    return null;
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
+    };
   }
 
-  return {
-    id: updatedUser._id.toString(),
-    name: updatedUser.name,
-    email: updatedUser.email,
-    role: updatedUser.role,
-    password: updatedUser.password,
-  };
-}
-async countAll(): Promise<number> {
-  return await UserModel.countDocuments();
-}
+  async resetFailedLoginAttempts(userId: string): Promise<User | null> {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { failedLoginAttempts: 0 },
+      { new: true }
+    );
+
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
+    };
+  }
+
+  async lockUser(userId: string): Promise<User | null> {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { isLocked: true },
+      { new: true }
+    );
+
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
+    };
+  }
+
+  async unlockUser(userId: string): Promise<User | null> {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { isLocked: false, failedLoginAttempts: 0 },
+      { new: true }
+    );
+
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      failedLoginAttempts: user.failedLoginAttempts,
+      isLocked: user.isLocked,
+    };
+  }
 }

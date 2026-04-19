@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   password: string;
-  role?: "user" | "admin";
-  isActive?: boolean;
+  role: "user" | "admin";
+  failedLoginAttempts: number;
+  isLocked: boolean;
 }

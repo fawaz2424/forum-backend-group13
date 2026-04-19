@@ -1,11 +1,10 @@
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
-import { User } from "../../domain/entities/User";
 import bcrypt from "bcryptjs";
 
 export class RegisterUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(name: string, email: string, password: string): Promise<User> {
+  async execute(name: string, email: string, password: string) {
     const existingUser = await this.userRepository.findByEmail(email);
 
     if (existingUser) {
@@ -14,13 +13,15 @@ export class RegisterUserUseCase {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user: User = {
+    const newUser = await this.userRepository.create({
       name,
       email,
       password: hashedPassword,
-      role: "user"
-    };
+      role: "user",
+      failedLoginAttempts: 0,
+      isLocked: false,
+    });
 
-    return await this.userRepository.create(user);
+    return newUser;
   }
 }
