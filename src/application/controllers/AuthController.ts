@@ -1,0 +1,40 @@
+import { Request, Response } from "express";
+import { UserRepository } from "../../infrastructure/repositories/UserRepository";
+import { RegisterUserUseCase } from "../use-cases/RegisterUser";
+import { LoginUserUseCase } from "../use-cases/LoginUser";
+
+const userRepository = new UserRepository();
+
+export class AuthController {
+  static async register(req: Request, res: Response) {
+    try {
+      const { name, email, password } = req.body;
+
+      const registerUser = new RegisterUserUseCase(userRepository);
+      const user = await registerUser.execute(name, email, password);
+
+      res.status(201).json({
+        message: "User registered successfully",
+        user,
+      });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  static async login(req: Request, res: Response) {
+    try {
+      const { email, password } = req.body;
+
+      const loginUser = new LoginUserUseCase(userRepository);
+      const result = await loginUser.execute(email, password);
+
+      res.status(200).json({
+        message: "Login successful",
+        ...result,
+      });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+}
